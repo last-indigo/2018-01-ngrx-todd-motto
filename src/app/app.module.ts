@@ -10,6 +10,33 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { storeFreeze } from 'ngrx-store-freeze';
 
+import * as fromStore from '../products/store';
+
+const store = new fromStore.Store({} , {
+  todos: [
+    {label: 'Eat pizza', complete: false}
+  ]
+});
+
+let todoInput = document.querySelector('#todo-input') as HTMLInputElement;
+let addTodoButton = document.querySelector('#artem-add-todo') as HTMLButtonElement;
+addTodoButton.addEventListener(
+  'click',
+  (ev) => {
+    let input = todoInput.value.trim();
+    if (!input) return;
+
+    let payload = {
+      label: input,
+      complete: false
+    };
+
+    store.dispatch({
+      type: 'ADD_TODO',
+      payload
+    })
+  })
+
 // this would be done dynamically with webpack for builds
 const environment = {
   development: true,
