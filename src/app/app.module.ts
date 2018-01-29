@@ -15,7 +15,7 @@ import * as fromStore from '../products/store';
 const reducers = {
   todos: fromStore.reducer
 };
-const store = new fromStore.Store(reducers);
+const store = new fromStore.Store(reducers);  // NOTE: NOT injectable to components!
 
 let todoInput = document.querySelector('#todo-input') as HTMLInputElement;
 let addTodoButton = document.querySelector('#artem-add-todo') as HTMLButtonElement;
@@ -25,25 +25,31 @@ addTodoButton.addEventListener(
     let input = todoInput.value.trim();
     if (!input) return;
 
-    let payload = {
+    let newTodo = {
       label: input,
       complete: false
     };
 
-    store.dispatch({
-      type: 'ADD_TODO',
-      payload
-    })
-
-    console.log(store.value);
+    store.dispatch(new fromStore.AddTodo(newTodo));
   })
 
 // so that we can see the changes as we make them
 store.subscribe(
   (state: any) => {
     console.log("STATE:::", state);
+    renderTodos(state.todos.data);
   }
 );
+
+function renderTodos(todos: Array<any>) {
+  const container = document.querySelector('#todos-outlet');
+  container.innerHTML = '';
+  todos.forEach(todo => {
+    const el = document.createElement('LI');
+    el.innerHTML = todo.label;
+    container.appendChild(el)
+  });
+}
 
 
 // this would be done dynamically with webpack for builds

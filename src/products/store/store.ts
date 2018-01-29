@@ -22,7 +22,10 @@ export class Store {
     this.notify();  // to immediately receive the data, otherwise store would need to change again
   }
 
-  dispatch(action: { type: string, payload: any }) {
+  dispatch(
+    action: any
+    // action: { type: string, payload: any }
+  ) {
     this.state = this.reduce(this.state, action);
     this.notify();  // logically, notify on any given change
   }
