@@ -38,6 +38,14 @@ addTodoButton.addEventListener(
     console.log(store.value);
   })
 
+// so that we can see the changes as we make them
+store.subscribe(
+  (state: any) => {
+    console.log("STATE:::", state);
+  }
+);
+
+
 // this would be done dynamically with webpack for builds
 const environment = {
   development: true,
