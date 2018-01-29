@@ -12,7 +12,10 @@ import { storeFreeze } from 'ngrx-store-freeze';
 
 import * as fromStore from '../products/store';
 
-const store = new fromStore.Store({});
+const reducers = {
+  todos: fromStore.reducer
+};
+const store = new fromStore.Store(reducers);
 
 let todoInput = document.querySelector('#todo-input') as HTMLInputElement;
 let addTodoButton = document.querySelector('#artem-add-todo') as HTMLButtonElement;
@@ -31,6 +34,8 @@ addTodoButton.addEventListener(
       type: 'ADD_TODO',
       payload
     })
+
+    console.log(store.value);
   })
 
 // this would be done dynamically with webpack for builds

@@ -1,3 +1,4 @@
+// reducer to handle initial state
 export const initialState = {
   loaded: false,
   loading: false,
