@@ -12,11 +12,7 @@ import { storeFreeze } from 'ngrx-store-freeze';
 
 import * as fromStore from '../products/store';
 
-const store = new fromStore.Store({} , {
-  todos: [
-    {label: 'Eat pizza', complete: false}
-  ]
-});
+const store = new fromStore.Store({});
 
 let todoInput = document.querySelector('#todo-input') as HTMLInputElement;
 let addTodoButton = document.querySelector('#artem-add-todo') as HTMLButtonElement;
