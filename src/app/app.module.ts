@@ -10,12 +10,14 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { storeFreeze } from 'ngrx-store-freeze';
 
-import * as fromStore from '../products/store';
+/* ===================== */
+/* TODOS EXAMPLE - START */
+import * as fromTodosStore from '../products/store-todos';
 
-const reducers = {
-  todos: fromStore.reducer
+const todosReducers = {
+  todos: fromTodosStore.reducer
 };
-const store = new fromStore.Store(reducers);  // NOTE: NOT injectable to components!
+const todosStore = new fromTodosStore.Store(todosReducers);  // NOTE: NOT injectable to components!
 
 let todoInput = document.querySelector('#todo-input') as HTMLInputElement;
 let addTodoButton = document.querySelector('#artem-add-todo') as HTMLButtonElement;
@@ -30,11 +32,11 @@ addTodoButton.addEventListener(
       complete: false
     };
 
-    store.dispatch(new fromStore.AddTodo(newTodo));
+    todosStore.dispatch(new fromTodosStore.AddTodo(newTodo));
   })
 
 // so that we can see the changes as we make them
-store.subscribe(
+todosStore.subscribe(
   (state: any) => {
     console.log("STATE:::", state);
     renderTodos(state.todos.data);
@@ -50,7 +52,8 @@ function renderTodos(todos: Array<any>) {
     container.appendChild(el)
   });
 }
-
+/* TODOS EXAMPLE - END */
+/* =================== */
 
 // this would be done dynamically with webpack for builds
 const environment = {
